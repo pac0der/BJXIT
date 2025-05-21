@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:api": "cd ../BSC.API && dotnet run --launch-profile \"https\"",
-    "start:frontend": "ng serve",
+    "start:frontend": "ng serve --open",
     "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\""
   },
   "private": true,
