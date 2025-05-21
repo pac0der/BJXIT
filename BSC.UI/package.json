@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "start:api": "cd ../BSC.API && dotnet run --launch-profile \"https\"",
+    "start:frontend": "ng serve",
+    "start:all": "concurrently \"npm run start:api\" \"npm run start:frontend\""
   },
   "private": true,
   "dependencies": {
@@ -27,6 +30,7 @@
     "@angular/cli": "^18.1.4",
     "@angular/compiler-cli": "^18.1.0",
     "@types/jasmine": "~5.1.0",
+    "concurrently": "^9.1.2",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
