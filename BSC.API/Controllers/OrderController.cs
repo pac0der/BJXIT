@@ -42,8 +42,22 @@ public class OrderController : ControllerBase
                 }).ToList()
             };
 
-            var result = await _orderService.PlaceOrder(order);
-            return Ok(result);
+            var savedOrder = await _orderService.PlaceOrder(order);
+
+            var response = new OrderResponseDto
+            {
+                Id = savedOrder.Id,
+                OrderDate = savedOrder.OrderDate,
+                CustomerName = savedOrder.CustomerName,
+                Items = savedOrder.Items.Select(i => new OrderItemResponseDto
+                {
+                    ProductId = i.ProductId,
+                    ProductName = i.Product?.Name ?? string.Empty,
+                    Quantity = i.Quantity
+                }).ToList()
+            };
+
+            return Ok(response);
         }
         catch (Exception ex)
         {
