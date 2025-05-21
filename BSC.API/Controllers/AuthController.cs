@@ -1,7 +1,6 @@
 using BSC.Business.Interfaces;
 using BSC.Models.DTOs;
 using BSC.Models.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -31,27 +30,6 @@ public class AuthController : ControllerBase
 
         var token = GenerateJwtToken(user);
         return Ok(new { Token = token });
-    }
-
-    [HttpPost("create")]
-    [Authorize(Roles = "Admin")]
-    public IActionResult CreateUser([FromBody] CreateUserRequest request)
-    {
-        try
-        {
-            var user = new User
-            {
-                Username = request.Username,
-                Role = request.Role
-            };
-
-            var createdUser = _userService.Create(user, request.Password);
-            return Ok(new { createdUser.Id, createdUser.Username, createdUser.Role });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
     }
 
     private string GenerateJwtToken(User user)

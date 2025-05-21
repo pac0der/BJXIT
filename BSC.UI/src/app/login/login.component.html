@@ -2,9 +2,9 @@
     <h2>Login</h2>
     <form (ngSubmit)="login()">
       <label>Username:</label>
-      <input [(ngModel)]="username" name="username" required />
+      <input [(ngModel)]="user.userName" name="username" required />
       <label>Password:</label>
-      <input [(ngModel)]="password" name="password" type="password" required />
+      <input [(ngModel)]="user.password" name="password" type="password" required />
       <button type="submit">Login</button>
       <div *ngIf="error" class="error">{{ error }}</div>
     </form>

@@ -1,0 +1,9 @@
+<div class="product-list">
+    <h2>Product Inventory</h2>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <ul>
+        <li *ngFor="let product of products">
+            {{ product.productKey }} - {{ product.name }} (Stock: {{ product.stock }})
+        </li>
+    </ul>
+</div>

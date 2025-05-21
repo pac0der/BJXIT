@@ -26,9 +26,4 @@ public class ProductService : IProductService
         _context.SaveChanges();
         return product;
     }
-
-    public IEnumerable<Product> GetInventoryReport()
-    {
-        return _context.Products.Where(p => p.Stock > 0).ToList();
-    }
 }

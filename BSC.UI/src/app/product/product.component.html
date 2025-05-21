@@ -1,0 +1,25 @@
+<h2>Create Product</h2>
+
+<form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+    <label>
+        Product Key:
+        <input name="productKey" [(ngModel)]="product.productKey" required />
+    </label>
+    <br />
+
+    <label>
+        Name:
+        <input name="name" [(ngModel)]="product.name" required />
+    </label>
+    <br />
+
+    <label>
+        Stock:
+        <input name="stock" type="number" [(ngModel)]="product.stock" required min="0" />
+    </label>
+    <br /><br />
+
+    <button type="submit" [disabled]="productForm.invalid">Create Product</button>
+</form>
+
+<app-product-list></app-product-list>

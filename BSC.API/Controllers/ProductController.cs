@@ -43,7 +43,7 @@ public class ProductController : ControllerBase
     [Authorize(Roles = "Admin,Staff")]
     public IActionResult GetInventoryReport()
     {
-        var report = _productService.GetInventoryReport();
+        var report = _productService.GetAll();
         return Ok(report);
     }
 }

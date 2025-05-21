@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { User } from '../models/user.model';
+import { UserRole } from '../models/user-role.enum';
 
 @Component({
   selector: 'app-login',
@@ -11,18 +14,21 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
 })
 export class LoginComponent {
-  username = '';
-  password = '';
+  user: User;
   error = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.user = { userName: '', password: "", role: undefined };
+  }
 
   login() {
-    this.authService.login(this.username, this.password).subscribe({
+    this.authService.login(this.user.userName, this.user.password).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        this.error = '';
-        alert('Login successful');
+        this.router.navigate(['/user']);
       },
       error: () => {
         this.error = 'Invalid username or password';
