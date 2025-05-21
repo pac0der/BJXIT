@@ -27,6 +27,7 @@ export class ProductComponent {
 
     this.productService.createProduct(this.product).subscribe({
       next: () => {
+        this.productService.triggerListRefresh();
         alert('Product created successfully!');
       },
       error: (response) => alert(response.error.message)

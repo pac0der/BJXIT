@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product-model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
     private baseUrl = environment.apiBaseUrl + '/Product';
+    private refreshListSource = new Subject<void>();
+    refreshList$ = this.refreshListSource.asObservable();
 
     constructor(private http: HttpClient) { }
 
@@ -17,4 +19,8 @@ export class ProductService {
     getProducts(): Observable<Product[]> {
         return this.http.get<Product[]>(`${this.baseUrl}/report`);
     }
+
+    triggerListRefresh() {
+        this.refreshListSource.next();
+      }
 }
