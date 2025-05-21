@@ -1,5 +1,5 @@
 Run => npm run start:all
 
-This will run API and Angular project simultaneously.
+This will run the API and Angular projects simultaneously.
 
-Database is created automatically
+The database is created automatically.
