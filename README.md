@@ -1,4 +1,5 @@
-Run => npm run start:all
+run => npm install
+then run => npm run start:all
 
 This will run the API and Angular projects simultaneously.
 
