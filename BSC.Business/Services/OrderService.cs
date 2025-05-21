@@ -21,11 +21,11 @@ public class OrderService : IOrderService
             .ToList();
     }
 
-    public Order PlaceOrder(Order order)
+    public async Task<Order> PlaceOrder(Order order)
     {
         foreach (var item in order.Items)
         {
-            var product = _context.Products.SingleOrDefault(p => p.Id == item.ProductId);
+            var product = await _context.Products.SingleOrDefaultAsync(p => p.Id == item.ProductId);
             if (product == null || product.Stock < item.Quantity)
                 throw new Exception($"Insufficient stock for product ID {item.ProductId}");
 

@@ -17,7 +17,11 @@ export class ProductService {
     }
 
     getProducts(): Observable<Product[]> {
-        return this.http.get<Product[]>(`${this.baseUrl}/report`);
+        return this.http.get<Product[]>(`${this.baseUrl}`);
+    }
+
+    getInventoryReport(): Observable<Product[]> {
+        return this.http.get<Product[]>(`${this.baseUrl}/inventoryreport`);
     }
 
     triggerListRefresh() {

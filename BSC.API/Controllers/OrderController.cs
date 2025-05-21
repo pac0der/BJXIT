@@ -1,4 +1,5 @@
 using BSC.Business.Interfaces;
+using BSC.Models.DTOs;
 using BSC.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,12 +26,23 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Seller")]
-    public IActionResult PlaceOrder([FromBody] Order order)
+    [Authorize(Roles = "Admin,Seller")]
+    public async Task<IActionResult> PlaceOrder([FromBody] OrderRequest dto)
     {
         try
         {
-            var result = _orderService.PlaceOrder(order);
+            var order = new Order
+            {
+                CustomerName = dto.CustomerName,
+                OrderDate = DateTime.UtcNow,
+                Items = dto.Items.Select(i => new OrderItem
+                {
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity
+                }).ToList()
+            };
+
+            var result = await _orderService.PlaceOrder(order);
             return Ok(result);
         }
         catch (Exception ex)

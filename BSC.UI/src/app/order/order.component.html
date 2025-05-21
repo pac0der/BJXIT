@@ -1,0 +1,38 @@
+<h2>Place Product Order</h2>
+
+<form #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm)">
+  <label>
+    Customer Name:
+    <input name="customerName" [(ngModel)]="customerName" required />
+  </label>
+  <br /><br />
+
+  <div *ngFor="let item of items; let i = index">
+    <label>
+      Product:
+      <select name="product-{{ i }}" [(ngModel)]="items[i].productId" required>
+        <option *ngFor="let product of products" [value]="product.id">
+          {{ product.name }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Quantity:
+      <input
+        type="number"
+        name="quantity-{{ i }}"
+        [(ngModel)]="items[i].quantity"
+        min="1"
+        required
+      />
+    </label>
+
+    <button type="button" (click)="removeItem(i)" *ngIf="items.length > 1">Remove</button>
+    <br /><br />
+  </div>
+
+  <button type="button" (click)="addItem()">Add Product</button>
+  <br /><br />
+  <button type="submit" [disabled]="orderForm.invalid">Place Order</button>
+</form>

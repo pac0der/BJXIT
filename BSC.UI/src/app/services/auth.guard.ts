@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { UserRole } from '../models/user-role.enum';
+import { decodeToken } from '../utils/jwt.utils';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
@@ -11,12 +12,14 @@ export const authGuard: CanActivateFn = (route, state) => {
     return router.parseUrl('/login');
   }
 
-  const userRole = getUserRoleFromToken(token);
+  const userRole = decodeToken(token).role;
 
 
   if (!userRole || (expectedRole && !expectedRole.includes(userRole))) {
-    if(userRole === UserRole.Staff){
-      return router.parseUrl('/product');      
+    if (userRole === UserRole.Staff) {
+      return router.parseUrl('/product');
+    } else if (userRole === UserRole.Seller) {
+      return router.parseUrl('/order');
     }
     return router.parseUrl('/login'); // access-denied
   }
@@ -26,9 +29,12 @@ export const authGuard: CanActivateFn = (route, state) => {
 
 export const redirectIfLoggedIn: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const token = localStorage.getItem('token') ?? '';
+  const token = localStorage.getItem('token');
+  let userRole = undefined;
 
-  const userRole = getUserRoleFromToken(token);
+  if (token) {
+    userRole = decodeToken(token).role;
+  }
 
   switch (userRole) {
     case UserRole.Admin:
@@ -39,12 +45,3 @@ export const redirectIfLoggedIn: CanActivateFn = (route, state) => {
 
   return true;
 };
-
-function getUserRoleFromToken(token: string): string | null {
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.role || null;
-  } catch {
-    return null;
-  }
-}

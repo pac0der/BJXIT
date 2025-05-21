@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import { routes } from './app.routes';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +10,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  username: string | null = null;
   constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe(name => this.username = name);
+  }
 
   logout() {
     this.authService.logout();

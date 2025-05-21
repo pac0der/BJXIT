@@ -29,6 +29,13 @@ export const routes: Routes = [
             import('./product/product.component').then(m => m.ProductComponent)
     },
     {
+        path: 'order',
+        canActivate: [authGuard],
+        data: { role: [UserRole.Admin, UserRole.Seller] },
+        loadComponent: () =>
+            import('./order/order.component').then(m => m.OrderComponent)
+    },
+    {
         path: '**',
         redirectTo: 'login'
     },

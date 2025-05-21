@@ -39,7 +39,7 @@ public class ProductController : ControllerBase
         }
     }
 
-    [HttpGet("report")]
+    [HttpGet("inventoryreport")]
     [Authorize(Roles = "Admin,Staff")]
     public IActionResult GetInventoryReport()
     {

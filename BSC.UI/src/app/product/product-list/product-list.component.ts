@@ -25,7 +25,7 @@ export class ProductListComponent {
   }
 
   loadProducts() {
-    this.productService.getProducts().subscribe({
+    this.productService.getInventoryReport().subscribe({
       next: (data) => this.products = data,
       error: (err) => this.error = 'Failed to load products'
     });

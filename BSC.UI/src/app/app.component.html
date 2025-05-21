@@ -1,6 +1,10 @@
 <nav style="background: #f0f0f0; padding: 1rem;">
     <a routerLink="/user" routerLinkActive="active" style="margin-right: 1rem;">Users</a>
     <a routerLink="/product" routerLinkActive="active" style="margin-right: 1rem;">Products</a>
+    <a routerLink="/order" routerLinkActive="active" style="margin-right: 1rem;">Orders</a>
+    <span *ngIf="username" style="margin-right: 1rem;">
+        Welcome, {{ username }}
+    </span>
     <a (click)="logout()" style="cursor: pointer;">Logout</a>
 </nav>
 
