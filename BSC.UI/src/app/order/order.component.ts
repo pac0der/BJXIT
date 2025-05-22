@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Order } from '../models/order.model';
+import { OrderRequestDto } from '../models/order.model';
 import { Product } from '../models/product-model';
 import { OrderService } from '../services/order.service';
 import { ProductService } from '../services/product.service';
@@ -42,7 +42,7 @@ export class OrderComponent {
   onSubmit(form: any) {
     if (form.invalid) return;
 
-    const order: Order = {
+    const order: OrderRequestDto = {
       customerName: this.customerName,
       items: this.items
     };

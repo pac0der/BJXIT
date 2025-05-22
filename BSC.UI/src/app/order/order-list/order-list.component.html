@@ -1,0 +1,20 @@
+<h2>Orders</h2>
+
+<div *ngFor="let order of orders">
+    <h3>Order #{{ order.id }}</h3>
+    <p><strong>Customer:</strong> {{ order.customerName }}</p>
+    <p><strong>Date:</strong> {{ order.orderDate | date:'medium' }}</p>
+
+    <table border="1" cellpadding="6" cellspacing="0">
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+        </tr>
+        <tr *ngFor="let item of order.items">
+            <td>{{ item.productName }}</td>
+            <td>{{ item.quantity }}</td>
+        </tr>
+    </table>
+
+    <br />
+</div>

@@ -1,4 +1,5 @@
-﻿using BSC.Models.Entities;
+﻿using BSC.Models.DTOs;
+using BSC.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BSC.DataAccess
@@ -36,6 +37,8 @@ namespace BSC.DataAccess
                 .WithOne(i => i.Product)
                 .HasForeignKey(i => i.ProductId)
                 .OnDelete(DeleteBehavior.Restrict); // or Cascade if appropriate
+
+            modelBuilder.Entity<OrderWithItemDto>().HasNoKey();
 
             base.OnModelCreating(modelBuilder);
         }

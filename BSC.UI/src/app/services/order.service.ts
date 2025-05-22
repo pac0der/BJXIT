@@ -2,15 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Order } from '../models/order.model';
+import { OrderRequestDto, OrderResponseDto } from '../models/order.model';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
-  private baseUrl = environment.apiBaseUrl + '/order';
+    private baseUrl = environment.apiBaseUrl + '/order';
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-  placeOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(`${this.baseUrl}`, order);
-  }
+    placeOrder(order: OrderRequestDto): Observable<OrderRequestDto> {
+        return this.http.post<OrderRequestDto>(`${this.baseUrl}`, order);
+    }
+
+    getAllWithSP() {
+        return this.http.get<OrderResponseDto[]>(`${this.baseUrl}/GetAllWithSP`);
+    }
 }

@@ -25,6 +25,14 @@ public class OrderController : ControllerBase
         return Ok(orders);
     }
 
+    [HttpGet("GetAllWithSP")]
+    [Authorize(Roles = "Admin,Staff")]
+    public async Task<IActionResult> GetAllWithSP()
+    {
+        var orders = await _orderService.GetAllWithSP();
+        return Ok(orders);
+    }
+
     [HttpPost]
     [Authorize(Roles = "Admin,Seller")]
     public async Task<IActionResult> PlaceOrder([FromBody] OrderRequest dto)

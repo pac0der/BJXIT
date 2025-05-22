@@ -4,6 +4,7 @@ using BSC.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BSC.DataAccess.Migrations
 {
     [DbContext(typeof(BscDbContext))]
-    partial class BscDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250522205054_AddGetAllOrdersProcedure")]
+    partial class AddGetAllOrdersProcedure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
